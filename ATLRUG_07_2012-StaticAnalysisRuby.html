@@ -1,0 +1,151 @@
+<head>
+  <title></title>
+  <meta content="Advanced Static Analysis of Ruby" name="description" />
+  <meta content="David Worth - dave@highgroove.com" name="author" />
+  <meta content="width=1024, user-scalable=no" name="viewport" />
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <script src="js/modernizr.custom.js"></script>
+  <link href="core/deck.core.css" rel="stylesheet" />
+  <script src="core/deck.core.js"></script>
+  <link href="extensions/hash/deck.hash.css" rel="stylesheet" />
+  <script src="extensions/hash/deck.hash.js"></script>
+  <link href="extensions/navigation/deck.navigation.css" rel="stylesheet" />
+  <script src="extensions/navigation/deck.navigation.js"></script>
+  <link href="extensions/scale/deck.scale.css" rel="stylesheet" />
+  <script src="extensions/scale/deck.scale.js"></script>
+  <link href="extensions/status/deck.status.css" rel="stylesheet" />
+  <script src="extensions/status/deck.status.js"></script>
+  <link href="themes/style/web-2.0.css" rel="stylesheet" />
+  <link href="css/ATLRUG_07_2012-StaticAnalysisRuby.css" rel="stylesheet" />
+  <script type="text/javascript">$(function() { $.deck('.slide'); });</script>
+</head>
+<body>
+  <article class="deck-container">
+    <section class="slide">
+      <h2>Static Analysis of Ruby</h2>
+      <h3>Turing Machines</h3>
+      <br />
+      <h4>David Worth - dave@highgroove.com</h4>
+      <img alt="Highgroove Studios" class="hglogo" src="images/highgroove.png" />
+    </section>
+    <section class="slide">
+      <h2>What Language is that?</h2>
+      <script src="https://gist.github.com/3666312.js?file=fib.scm"></script>
+      <h3 class="slide">Lisp?</h3>
+      <h3 class="slide">Scheme?</h3>
+      <h3 class="slide">Clojure?</h3>
+      <h3 class="slide">... I would have accepted any.</h3>
+    </section>
+    <section class="slide">
+      <h2>Why Lisps?</h2>
+      <h3 class="slide">... because they show that computers are Turing machines.<a href="http://www.flickr.com/photos/ell-r-brown/5118274331/" title="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle by ell brown, on Flickr"><img alt="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle" height="375" src="http://farm2.staticflickr.com/1424/5118274331_4104ffa06d.jpg" width="500" /></a>
+      </h3>
+    </section>
+    <section class="slide">
+      <h2>Why Lisps?</h2>
+      <h3>... because they show that computers are Turing machines.<a href="http://www.flickr.com/photos/ell-r-brown/5118274331/" title="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle by ell brown, on Flickr"><img alt="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle" height="375" src="http://farm2.staticflickr.com/1424/5118274331_4104ffa06d.jpg" width="500" /></a>
+      </h3>
+      <h3>"data" and "code" are indistinguishable in Lisps because they are identically encoded "lists"</h3>
+    </section>
+    <section class="slide">
+      <h2>Shellcode </h2>
+      <h3>another great example of our Turing Machines</h3>
+      <script src="https://gist.github.com/3666312.js?file=shellcode_turing_machine.c"></script>
+    </section>
+    <section class="slide">
+      <h2>Ruby as an acceptable Lisp</h2>
+      <h3 class="slide">Appologies to  <a href="http://steve-yegge.blogspot.com/2006/04/lisp-is-not-acceptable-lisp.html">Steve Yegge but...</a>
+      </h3>
+      <h3 class="slide">I posit that Ruby is a perfectly acceptable Lisp. </h3>
+      <h3 class="slide">Even if it lacks some cool Lisp-isms like macros</h3>
+      <h3 class="slide">because it fakes it so well with things like <tt>define_method</tt>
+      </h3>
+    </section>
+    <section class="slide">
+      <h2>Abstract Syntax Trees</h2>
+      <h3 class="slide">Without teaching a compilers class...</h3>
+      <a href="http://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools"><image alt="Purple(?) Dragon Book Cover" src="images/dragon_book.jpg" style="float: right;"></image></a>
+      <ul>
+        <li class="slide">an Abstract Syntax Tree (AST) is an internal representation used to represent a language</li>
+        <li class="slide">used by a compiler as an intermediate representation between your code and the compiled machine code</li>
+        <li class="slide">used by "interpreted"<sup>1</sup> languages like Ruby or Python<sup>2</sup> to instruct the execution environment (virtual machine) how to manipulate its state.</li>
+      </ul>
+      <ol>
+        <li class="slide">These "interpreted" languages pretty much aren't anymore.  Everything executes in a VM, and it's VMs/turtles all the way down.</li>
+        <li class="slide">Python is complicated, has a byte-compiler, and I am out of my comfort zone talking about the nuts and bolts of it as a language.</li>
+      </ol>
+    </section>
+    <section class="slide">
+      <h1>Analyzing Ruby</h1>
+    </section>
+    <section class="slide">
+      <h2>Here's some everyday Ruby:</h2>
+      <script src="https://gist.github.com/3666312.js?file=string_foo_bar_baz_sexp.rb"></script>
+      <h3 class="slide">What the?</h3>
+      <h3 class="slide">Who can tell me what this does?</h3>
+    </section>
+    <section class="slide">
+      <h2>Side by side...</h2>
+      <h3>it is much clearer what's going on</h3>
+      <script src="https://gist.github.com/3666312.js?file=string_foo_bar_baz_sexp.rb"></script>
+      <script src="https://gist.github.com/3666312.js?file=string_foo_bar_baz.rb"></script>
+    </section>
+    <section class="slide">
+      <h2>Node types in Ruby's AST</h2>
+      <h3 class="slide">You could almost just write code with every operator and extract the node types manually</h3>
+      <h3 class="slide">or...</h3>
+    </section>
+    <section class="slide">
+      <h2>Node types in Ruby's AST (con't)</h2>
+      <h4>By reading the Ruby source we can learn about the node types:<script src="https://gist.github.com/3666312.js?file=node_excerpts.c"></script>
+      </h4>
+    </section>
+    <section class="slide">
+      <h2>Do something meaningful</h2>
+      <h3 class="slide">Detect user input in a string </h3>
+    </section>
+    <section class="slide">
+      <h2>This is impossible...</h2>
+      <h4>Ruby has all sorts of things that get in our way:</h4>
+      <ul>
+        <li>
+          <tt>method_missing</tt>
+        </li>
+        <li>
+          <tt>eval</tt>
+        </li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Other cool uses of Static Analysis</h2>
+      <ul class="slide">
+        <li>
+          <a href="http://ruby.sadi.st/flog.html">Flog</a> / <a href="http://ruby.sadi.st/flay.html">Flay</a>
+        </li>
+        <li>
+          <a href="http://github.com/martinjandrews/roodi">Roodi</a> / <a href="https://github.com/troessner/reek">Reek</a>
+        </li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h3>References</h3>
+      <ul>
+        <li>
+          <a href="http://blog.rubybestpractices.com/posts/judofyr/sexp-for-rubyists.html">Ruby Best Practices - Sexp for Rubyists</a>
+        </li>
+        <li>
+          <a href="https://github.com/seattlerb/ruby2ruby">ruby2ruby</a> / <a href="https://github.com/seattlerb/ruby_parser">ruby_parser</a> / <a href="https://github.com/seattlerb/parsetree">parsetree</a> - All by  <a href="http://zenspider.com/">Ryan Davis</a> at <a href="http://www.seattlerb.org/">Seattle.rb</a>
+        </li>
+        <li>
+          <a href="https://github.com/ruby/ruby/blob/trunk/node.c#L100-886">Ruby's AST Node types</a>
+        </li>
+      </ul>
+    </section>
+    <p class="deck-navigation">
+      <a href="#"><span class="deck-prev-link" title="Previous">&#8592;</span></a><a href="#"><span class="deck-next-link" title="Next">&#8594;</span></a>
+    </p>
+    <p class="deck-status">
+      <span class="deck-status-current"></span> /<span class="deck-status-total"></span>
+    </p>
+  </article>
+</body>
