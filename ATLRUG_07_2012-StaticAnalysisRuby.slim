@@ -132,46 +132,128 @@ body
 
     section.slide
       h2 Node types in Ruby's AST (con't)
-      h4
-        | By reading the Ruby source we can learn about the node types:
-        script src="https://gist.github.com/3666312.js?file=node_excerpts.c"
-
-    /section.slide
-      /h2 Some Surprises
-
-      /h3.slide
-        /tt private
-        /'  isn't a "keyword" but a method call
-        /a href="http://apidock.com/ruby/Module/private" APIDoc
-      /h3.slide
-        /| Thanks to Mike Skalnik for first pointing this out to me.
+      h3 By reading the Ruby source we can learn about the node types:
+      script src="https://gist.github.com/3666312.js?file=node_excerpts.c"
 
     section.slide
-      h2 Do something meaningful
+      h2 Do something meaningful...
+
+    section.slide
+      h2 Do something meaningful...
+      h3 Find string interpolations using the Ruby Parser gem
+      script src="https://gist.github.com/3666312.js?file=ruby_parser_example.rb"
+
+    section.slide
+      h2 Find string interpolations (con't)
+      h3 Which gives us our old friend the s-expression
+      script src="https://gist.github.com/3666312.js?file=string_foo_bar_baz_sexp.rb"
+
+    section.slide
+      h2 Find string interpolations (con't)
       h3.slide
-        ' Detect user input in a string
+        | This is an S-Expression... 
+        span.slide also known as an array.
+      h3.slide So we can simply walk down the tree making decisions on node types
+
+    section.slide
+      h2 Find string interpolations (con't)
+      h3 Walk the AST
+      script src="https://gist.github.com/3666312.js?file=find_dstrs.rb"
+
+    section.slide
+      h2 Find string interpolations (con't)
+      h3 Walk the AST, and we'll get back a list of interpolated strings as s-expressions
+      script src="https://gist.github.com/3666312.js?file=dstr_sexp.rb"
+
+    section.slide
+      h2 Find string interpolations (con't)
+      div
+        h3 Walking the tree further to find "interpolation expressions" is very similar and produces
+        script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"
+
+    section.slide
+      h2 Find string interpolations (con't)
+      div
+        h3 Walking the tree further to find "interpolation expressions" is very similar and produces
+        script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"
+      h3.slide This is where the actual interpolation occurs
+      h3.slide As we can see, we're interpolating the value of the local variable "baz"
+
+    section.slide
+      h2 Better S-Expression Parsing with SexpProcessor
+      h3.slide SexpProcessor allows you to write handlers for each node type in the AST
+
+    section.slide
+      h2 Better S-Expression Parsing with SexpProcessor
+      h3 SexpProcessor allows you to write handlers for each node in the AST:
+      script src="https://gist.github.com/3666312.js?file=simplest_possible_sexp_processor_example.rb"
 
     section.slide
       h2 This is impossible...
 
-      h4 Ruby has all sorts of things that get in our way:
-      ul
-        li
-          tt method_missing
-        li
-          tt eval
+      div.slide
+        h3 Ruby has all sorts of things that get in our way:
+        ul
+          li
+            tt method_missing
+          li
+            tt eval
+      h3.slide These make analysis of every piece of code in their entirety very hard...
+      h3.slide The good news is we can do "good enough" for lots of tasks
+
 
     section.slide
       h2 Other cool uses of Static Analysis
-      ul.slide
-        li
-          a href="http://ruby.sadi.st/flog.html" Flog
-          '  /
-          a href="http://ruby.sadi.st/flay.html" Flay
-        li
-          a href="http://github.com/martinjandrews/roodi" Roodi
-          '  /
-          a href="https://github.com/troessner/reek" Reek
+      .slide
+        ul
+          li
+            a href="http://ruby.sadi.st/flog.html" Flog
+            '  /
+            a href="http://ruby.sadi.st/flay.html" Flay
+          li
+            a href="http://github.com/martinjandrews/roodi" Roodi
+            '  /
+            a href="https://github.com/troessner/reek" Reek
+        img src="images/ruby_logo.gif" alt="Ruby - A Programmer's Best Friend"
+
+    section.slide
+      h2 Cool Uses of Static Analyis - Flog
+      h3.slide
+        | From the README:
+        pre "Flog reports the most tortured code in an easy to read pain report. The higher the score, the more pain the code is in."
+      h3.slide Flog relies on static analysis via SexpProcessor
+
+    section.slide
+      h2 Cool Uses of Static Analyis - Flog
+      h3
+        'Flog assigns to each node of the AST various weighted penalties for complexity...
+        span.slide
+          at the end of a run the "worst" (most complicated) methods are presented with their scores
+
+    section.slide
+      h2 Cool Uses of Static Analyis - Flog
+      script src="https://gist.github.com/3703803.js?file=flog_examples.txt"
+
+    section.slide
+      h2 Cool Uses of Static Analyis - Flog
+      h3
+        ' Note: If you look at Flog's source, the author(s) use the 
+        tt Sexp#s 
+        ' method from
+        tt SexpProcessor 
+        ' to return an empty s-expression at the end of each 
+        tt process_* 
+        ' method.
+      h3.slide 
+        | It may take a while to track that down
+        a href="http://www.flickr.com/photos/silvery/2414538926/" title="Where's Waldo in Google Maps? by Si1very, on Flickr"
+          img src="http://farm3.staticflickr.com/2252/2414538926_3d80e76f73.jpg" width="500" height="377" alt="Where's Waldo in Google Maps?" style="float: right;"
+
+    section.slide
+      h2 Cool Uses of Static Analyis - Flay
+      h3.slide
+        | From the README:
+        pre "Flay analyzes code for structural similarities. Differences in literal values, variable, class, method names, whitespace, programming style, braces vs do/end, etc are all ignored. Making this totally rad.""
 
     section.slide
       h3 References
@@ -191,12 +273,9 @@ body
           a href="http://www.seattlerb.org/" Seattle.rb
         li
           a href="https://github.com/ruby/ruby/blob/trunk/node.c#L100-886" Ruby's AST Node types
-      /a.deck-permalink href="." title="Permalink to References" #
+        li
+          a href="http://mitpress.mit.edu/sicp/" Structure and Interpretation of Computer Programs
 
-      // Permalinks are available if you've enabled the hash exntension
-      /a.deck-permalink href="." title="Permalink to this slide" #
-
-    // If you've enabled the navigation extension
     p.deck-navigation
       a href="#"
         span.deck-prev-link title="Previous" &#8592;

@@ -97,35 +97,118 @@
     </section>
     <section class="slide">
       <h2>Node types in Ruby's AST (con't)</h2>
-      <h4>By reading the Ruby source we can learn about the node types:<script src="https://gist.github.com/3666312.js?file=node_excerpts.c"></script>
-      </h4>
+      <h3>By reading the Ruby source we can learn about the node types:</h3>
+      <script src="https://gist.github.com/3666312.js?file=node_excerpts.c"></script>
     </section>
     <section class="slide">
-      <h2>Do something meaningful</h2>
-      <h3 class="slide">Detect user input in a string </h3>
+      <h2>Do something meaningful...</h2>
+    </section>
+    <section class="slide">
+      <h2>Do something meaningful...</h2>
+      <h3>Find string interpolations using the Ruby Parser gem</h3>
+      <script src="https://gist.github.com/3666312.js?file=ruby_parser_example.rb"></script>
+    </section>
+    <section class="slide">
+      <h2>Find string interpolations (con't)</h2>
+      <h3>Which gives us our old friend the s-expression</h3>
+      <script src="https://gist.github.com/3666312.js?file=string_foo_bar_baz_sexp.rb"></script>
+    </section>
+    <section class="slide">
+      <h2>Find string interpolations (con't)</h2>
+      <h3 class="slide">This is an S-Expression... <span class="slide">also known as an array.</span>
+      </h3>
+      <h3 class="slide">So we can simply walk down the tree making decisions on node types</h3>
+    </section>
+    <section class="slide">
+      <h2>Find string interpolations (con't)</h2>
+      <h3>Walk the AST</h3>
+      <script src="https://gist.github.com/3666312.js?file=find_dstrs.rb"></script>
+    </section>
+    <section class="slide">
+      <h2>Find string interpolations (con't)</h2>
+      <h3>Walk the AST, and we'll get back a list of interpolated strings as s-expressions</h3>
+      <script src="https://gist.github.com/3666312.js?file=dstr_sexp.rb"></script>
+    </section>
+    <section class="slide">
+      <h2>Find string interpolations (con't)</h2>
+      <div>
+        <h3>Walking the tree further to find "interpolation expressions" is very similar and produces</h3>
+        <script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"></script>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Find string interpolations (con't)</h2>
+      <div>
+        <h3>Walking the tree further to find "interpolation expressions" is very similar and produces</h3>
+        <script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"></script>
+      </div>
+      <h3 class="slide">This is where the actual interpolation occurs</h3>
+      <h3 class="slide">As we can see, we're interpolating the value of the local variable "baz"</h3>
+    </section>
+    <section class="slide">
+      <h2>Better S-Expression Parsing with SexpProcessor</h2>
+      <h3 class="slide">SexpProcessor allows you to write handlers for each node type in the AST</h3>
+    </section>
+    <section class="slide">
+      <h2>Better S-Expression Parsing with SexpProcessor</h2>
+      <h3>SexpProcessor allows you to write handlers for each node in the AST:</h3>
+      <script src="https://gist.github.com/3666312.js?file=simplest_possible_sexp_processor_example.rb"></script>
     </section>
     <section class="slide">
       <h2>This is impossible...</h2>
-      <h4>Ruby has all sorts of things that get in our way:</h4>
-      <ul>
-        <li>
-          <tt>method_missing</tt>
-        </li>
-        <li>
-          <tt>eval</tt>
-        </li>
-      </ul>
+      <div class="slide">
+        <h3>Ruby has all sorts of things that get in our way:</h3>
+        <ul>
+          <li>
+            <tt>method_missing</tt>
+          </li>
+          <li>
+            <tt>eval</tt>
+          </li>
+        </ul>
+      </div>
+      <h3 class="slide">These make analysis of every piece of code in their entirety very hard...</h3>
+      <h3 class="slide">The good news is we can do "good enough" for lots of tasks</h3>
     </section>
     <section class="slide">
       <h2>Other cool uses of Static Analysis</h2>
-      <ul class="slide">
-        <li>
-          <a href="http://ruby.sadi.st/flog.html">Flog</a> / <a href="http://ruby.sadi.st/flay.html">Flay</a>
-        </li>
-        <li>
-          <a href="http://github.com/martinjandrews/roodi">Roodi</a> / <a href="https://github.com/troessner/reek">Reek</a>
-        </li>
-      </ul>
+      <div class="slide">
+        <ul>
+          <li>
+            <a href="http://ruby.sadi.st/flog.html">Flog</a> / <a href="http://ruby.sadi.st/flay.html">Flay</a>
+          </li>
+          <li>
+            <a href="http://github.com/martinjandrews/roodi">Roodi</a> / <a href="https://github.com/troessner/reek">Reek</a>
+          </li>
+        </ul>
+        <img alt="Ruby - A Programmer's Best Friend" src="images/ruby_logo.gif" />
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <h3 class="slide">From the README:<pre>"Flog reports the most tortured code in an easy to read pain report. The higher the score, the more pain the code is in."</pre>
+      </h3>
+      <h3 class="slide">Flog relies on static analysis via SexpProcessor</h3>
+    </section>
+    <section class="slide">
+      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <h3>Flog assigns to each node of the AST various weighted penalties for complexity... <span class="slide"><at>the end of a run the "worst" (most complicated) methods are presented with their scores</at></span>
+      </h3>
+    </section>
+    <section class="slide">
+      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <script src="https://gist.github.com/3703803.js?file=flog_examples.txt"></script>
+    </section>
+    <section class="slide">
+      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <h3>Note: If you look at Flog's source, the author(s) use the  <tt>Sexp#s </tt>method from <tt>SexpProcessor </tt>to return an empty s-expression at the end of each  <tt>process_* </tt>method. </h3>
+      <h3 class="slide">It may take a while to track that down<a href="http://www.flickr.com/photos/silvery/2414538926/" title="Where's Waldo in Google Maps? by Si1very, on Flickr"><img alt="Where's Waldo in Google Maps?" height="377" src="http://farm3.staticflickr.com/2252/2414538926_3d80e76f73.jpg" style="float: right;" width="500" /></a>
+      </h3>
+    </section>
+    <section class="slide">
+      <h2>Cool Uses of Static Analyis - Flay</h2>
+      <h3 class="slide">From the README:<pre>"Flay analyzes code for structural similarities. Differences in literal values, variable, class, method names, whitespace, programming style, braces vs do/end, etc are all ignored. Making this totally rad.""</pre>
+      </h3>
     </section>
     <section class="slide">
       <h3>References</h3>
@@ -138,6 +221,9 @@
         </li>
         <li>
           <a href="https://github.com/ruby/ruby/blob/trunk/node.c#L100-886">Ruby's AST Node types</a>
+        </li>
+        <li>
+          <a href="http://mitpress.mit.edu/sicp/">Structure and Interpretation of Computer Programs</a>
         </li>
       </ul>
     </section>
