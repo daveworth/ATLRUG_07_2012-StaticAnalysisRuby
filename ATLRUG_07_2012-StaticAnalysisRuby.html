@@ -48,7 +48,7 @@
     </section>
     <section class="slide">
       <h2>Ruby as an acceptable Lisp</h2>
-      <h3 class="slide">Appologies to  <a href="http://steve-yegge.blogspot.com/2006/04/lisp-is-not-acceptable-lisp.html">Steve Yegge but...</a><span class="slide">I posit that Ruby is a perfectly acceptable Lisp.</span>
+      <h3 class="slide">Apologies to  <a href="http://steve-yegge.blogspot.com/2006/04/lisp-is-not-acceptable-lisp.html">Steve Yegge but...</a><span class="slide">I posit that Ruby is a perfectly acceptable Lisp.</span>
       </h3>
       <h3 class="slide">Even if it lacks some cool Lisp-isms like macros... <span class="slide">because it fakes it so well with things like <tt>define_method / instance_eval / class_eval</tt></span>
       </h3>
@@ -179,28 +179,28 @@
       </div>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <h2>Cool Uses of Static Analysis - Flog</h2>
       <h3>From the README:<pre>"Flog reports the most tortured code in an easy to read pain report. The higher the score, the more pain the code is in."</pre>
       </h3>
       <h3 class="slide">Flog relies on static analysis via SexpProcessor</h3>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flog (con't)</h2>
+      <h2>Cool Uses of Static Analysis - Flog (con't)</h2>
       <h3>Flog assigns to each node of the AST various weighted penalties for complexity... <span class="slide"><at>the end of a run the "worst" (most complicated) methods are presented with their scores</at></span>
       </h3>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flog (con't)</h2>
+      <h2>Cool Uses of Static Analysis - Flog (con't)</h2>
       <script src="https://gist.github.com/3703803.js?file=flog_examples.txt"></script>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flog (con't)</h2>
+      <h2>Cool Uses of Static Analysis - Flog (con't)</h2>
       <h3>Note: If you look at Flog's source, the author(s) use the  <tt>Sexp#s </tt>method from <tt>SexpProcessor </tt>to return an empty s-expression at the end of each  <tt>process_* </tt>method. </h3>
       <h3 class="slide">It may take a while to track that down<a href="http://www.flickr.com/photos/silvery/2414538926/" title="Where's Waldo in Google Maps? by Si1very, on Flickr"><img alt="Where's Waldo in Google Maps?" height="377" src="http://farm3.staticflickr.com/2252/2414538926_3d80e76f73.jpg" style="float: right;" width="500" /></a>
       </h3>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flay</h2>
+      <h2>Cool Uses of Static Analysis - Flay</h2>
       <h3 class="slide">From the README:<pre>"Flay analyzes code for structural similarities. Differences in literal values, variable, class, method names, whitespace, programming style, braces vs do/end, etc are all ignored. Making this totally rad.""</pre>
       </h3>
       <h3 class="slide">They mean it.  That is rad.</h3>
