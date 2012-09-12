@@ -23,7 +23,6 @@
   <article class="deck-container">
     <section class="slide">
       <h2>Static Analysis of Ruby</h2>
-      <h3>Turing Machines</h3>
       <br />
       <h4>David Worth - dave@highgroove.com</h4>
       <img alt="Highgroove Studios" class="hglogo" src="images/highgroove.png" />
@@ -37,15 +36,10 @@
       <h3 class="slide">... I would have accepted any.</h3>
     </section>
     <section class="slide">
-      <h2>Why Lisps?</h2>
+      <h2>Why (study, learn, like) Lisps?</h2>
       <h3 class="slide">... because they show that computers are Turing machines.<a href="http://www.flickr.com/photos/ell-r-brown/5118274331/" title="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle by ell brown, on Flickr"><img alt="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle" height="375" src="http://farm2.staticflickr.com/1424/5118274331_4104ffa06d.jpg" width="500" /></a>
       </h3>
-    </section>
-    <section class="slide">
-      <h2>Why Lisps?</h2>
-      <h3>... because they show that computers are Turing machines.<a href="http://www.flickr.com/photos/ell-r-brown/5118274331/" title="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle by ell brown, on Flickr"><img alt="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle" height="375" src="http://farm2.staticflickr.com/1424/5118274331_4104ffa06d.jpg" width="500" /></a>
-      </h3>
-      <h3>"data" and "code" are indistinguishable in Lisps because they are identically encoded "lists"</h3>
+      <h3 class="slide">"data" and "code" are indistinguishable in Lisps because they are identically encoded "lists"</h3>
     </section>
     <section class="slide">
       <h2>Shellcode </h2>
@@ -54,11 +48,9 @@
     </section>
     <section class="slide">
       <h2>Ruby as an acceptable Lisp</h2>
-      <h3 class="slide">Appologies to  <a href="http://steve-yegge.blogspot.com/2006/04/lisp-is-not-acceptable-lisp.html">Steve Yegge but...</a>
+      <h3 class="slide">Appologies to  <a href="http://steve-yegge.blogspot.com/2006/04/lisp-is-not-acceptable-lisp.html">Steve Yegge but...</a><span class="slide">I posit that Ruby is a perfectly acceptable Lisp.</span>
       </h3>
-      <h3 class="slide">I posit that Ruby is a perfectly acceptable Lisp. </h3>
-      <h3 class="slide">Even if it lacks some cool Lisp-isms like macros</h3>
-      <h3 class="slide">because it fakes it so well with things like <tt>define_method</tt>
+      <h3 class="slide">Even if it lacks some cool Lisp-isms like macros... <span class="slide">because it fakes it so well with things like <tt>define_method / instance_eval / class_eval</tt></span>
       </h3>
     </section>
     <section class="slide">
@@ -101,10 +93,10 @@
       <script src="https://gist.github.com/3666312.js?file=node_excerpts.c"></script>
     </section>
     <section class="slide">
-      <h2>Do something meaningful...</h2>
+      <h2>Do something interesting...</h2>
     </section>
     <section class="slide">
-      <h2>Do something meaningful...</h2>
+      <h2>Do something interesting...</h2>
       <h3>Find string interpolations using the Ruby Parser gem</h3>
       <script src="https://gist.github.com/3666312.js?file=ruby_parser_example.rb"></script>
     </section>
@@ -115,7 +107,7 @@
     </section>
     <section class="slide">
       <h2>Find string interpolations (con't)</h2>
-      <h3 class="slide">This is an S-Expression... <span class="slide">also known as an array.</span>
+      <h3>This is an S-Expression... <span class="slide">also known as an array.</span>
       </h3>
       <h3 class="slide">So we can simply walk down the tree making decisions on node types</h3>
     </section>
@@ -126,24 +118,25 @@
     </section>
     <section class="slide">
       <h2>Find string interpolations (con't)</h2>
-      <h3>Walk the AST, and we'll get back a list of interpolated strings as s-expressions</h3>
+      <h4>Walk the AST, and we'll get back a list of interpolated strings as s-expressions</h4>
       <script src="https://gist.github.com/3666312.js?file=dstr_sexp.rb"></script>
     </section>
     <section class="slide">
       <h2>Find string interpolations (con't)</h2>
       <div>
-        <h3>Walking the tree further to find "interpolation expressions" is very similar and produces</h3>
+        <h4>Walking the tree further to find "interpolation expressions" is very similar and produces</h4>
         <script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"></script>
       </div>
     </section>
     <section class="slide">
       <h2>Find string interpolations (con't)</h2>
       <div>
-        <h3>Walking the tree further to find "interpolation expressions" is very similar and produces</h3>
+        <h4>Walking the tree further to find "interpolation expressions" is very similar and produces</h4>
         <script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"></script>
       </div>
       <h3 class="slide">This is where the actual interpolation occurs</h3>
-      <h3 class="slide">As we can see, we're interpolating the value of the local variable "baz"</h3>
+      <h3 class="slide">As we can see, we're interpolating the value of the local variable <tt>baz</tt>
+      </h3>
     </section>
     <section class="slide">
       <h2>Better S-Expression Parsing with SexpProcessor</h2>
@@ -155,7 +148,7 @@
       <script src="https://gist.github.com/3666312.js?file=simplest_possible_sexp_processor_example.rb"></script>
     </section>
     <section class="slide">
-      <h2>This is impossible...</h2>
+      <h2>"This is whole thing is impossible..."</h2>
       <div class="slide">
         <h3>Ruby has all sorts of things that get in our way:</h3>
         <ul>
@@ -178,29 +171,30 @@
             <a href="http://ruby.sadi.st/flog.html">Flog</a> / <a href="http://ruby.sadi.st/flay.html">Flay</a>
           </li>
           <li>
-            <a href="http://github.com/martinjandrews/roodi">Roodi</a> / <a href="https://github.com/troessner/reek">Reek</a>
+            <a href="http://brakemanscanner.org/">Brakeman Scanner</a>
           </li>
+          <li>... and more</li>
         </ul>
         <img alt="Ruby - A Programmer's Best Friend" src="images/ruby_logo.gif" />
       </div>
     </section>
     <section class="slide">
       <h2>Cool Uses of Static Analyis - Flog</h2>
-      <h3 class="slide">From the README:<pre>"Flog reports the most tortured code in an easy to read pain report. The higher the score, the more pain the code is in."</pre>
+      <h3>From the README:<pre>"Flog reports the most tortured code in an easy to read pain report. The higher the score, the more pain the code is in."</pre>
       </h3>
       <h3 class="slide">Flog relies on static analysis via SexpProcessor</h3>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <h2>Cool Uses of Static Analyis - Flog (con't)</h2>
       <h3>Flog assigns to each node of the AST various weighted penalties for complexity... <span class="slide"><at>the end of a run the "worst" (most complicated) methods are presented with their scores</at></span>
       </h3>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <h2>Cool Uses of Static Analyis - Flog (con't)</h2>
       <script src="https://gist.github.com/3703803.js?file=flog_examples.txt"></script>
     </section>
     <section class="slide">
-      <h2>Cool Uses of Static Analyis - Flog</h2>
+      <h2>Cool Uses of Static Analyis - Flog (con't)</h2>
       <h3>Note: If you look at Flog's source, the author(s) use the  <tt>Sexp#s </tt>method from <tt>SexpProcessor </tt>to return an empty s-expression at the end of each  <tt>process_* </tt>method. </h3>
       <h3 class="slide">It may take a while to track that down<a href="http://www.flickr.com/photos/silvery/2414538926/" title="Where's Waldo in Google Maps? by Si1very, on Flickr"><img alt="Where's Waldo in Google Maps?" height="377" src="http://farm3.staticflickr.com/2252/2414538926_3d80e76f73.jpg" style="float: right;" width="500" /></a>
       </h3>
@@ -209,9 +203,46 @@
       <h2>Cool Uses of Static Analyis - Flay</h2>
       <h3 class="slide">From the README:<pre>"Flay analyzes code for structural similarities. Differences in literal values, variable, class, method names, whitespace, programming style, braces vs do/end, etc are all ignored. Making this totally rad.""</pre>
       </h3>
+      <h3 class="slide">They mean it.  That is rad.</h3>
     </section>
     <section class="slide">
-      <h3>References</h3>
+      <h2>Cool Uses of Static Analyis - Brakeman <img alt="Brakeman Scanner Logo" src="images/brakeman.png" style="float: right;" />
+      </h2>
+      <h3 class="slide">Fairly comprehensive security scanner for rails apps</h3>
+      <h3 class="slide">Analyzes Rails apps from their source without scanning the running app.</h3>
+      <h3 class="slide">Aware of a wide variety of Rails-specific vulnerabilities as well as general web-app security issues.</h3>
+      <h3 class="slide">Presented on before at ATLRUG but...</h3>
+      <h3 class="slide">I'll be happy to talk your ear off about it after the talk.</h3>
+    </section>
+    <section class="slide">
+      <h2>Other cool uses of Static Analysis</h2>
+      <h3 class="slide">(Sir Not-Appearing-In-This-Film) <ul>
+          <li>
+            <a href="http://github.com/martinjandrews/roodi">Roodi </a><span class="slide">- "Ruby Object Oriented Design Inferometer" <div class="slide">Cyclomatic complexity checker for Ruby apps <span class="slide">- i.e. the number of "linearly independent" paths through a program's source</span>
+              </div>
+            </span>
+          </li>
+          <li class="slide">
+            <a href="https://github.com/troessner/reek">Reek </a><span class="slide">- a "Code smell detector for Ruby" <div class="slide">Detects: <ul>
+                  <li class="slide">functions with too many parameters</li>
+                  <li class="slide">poor variable naming: <tt>x, y, i, j, k</tt>
+                  </li>
+                  <li class="slide">and more...</li>
+                </ul>
+              </div>
+            </span>
+          </li>
+        </ul>
+      </h3>
+    </section>
+    <section class="slide">
+      <h1>Thank You!</h1>
+    </section>
+    <section class="slide">
+      <h1>Questions?</h1>
+    </section>
+    <section class="slide">
+      <h2>References</h2>
       <ul>
         <li>
           <a href="http://blog.rubybestpractices.com/posts/judofyr/sexp-for-rubyists.html">Ruby Best Practices - Sexp for Rubyists</a>
@@ -229,9 +260,6 @@
     </section>
     <p class="deck-navigation">
       <a href="#"><span class="deck-prev-link" title="Previous">&#8592;</span></a><a href="#"><span class="deck-next-link" title="Next">&#8594;</span></a>
-    </p>
-    <p class="deck-status">
-      <span class="deck-status-current"></span> /<span class="deck-status-total"></span>
     </p>
   </article>
 </body>

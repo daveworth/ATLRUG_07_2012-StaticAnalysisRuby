@@ -45,7 +45,6 @@ body
   article.deck-container
     section.slide
       h2 Static Analysis of Ruby
-      h3 Turing Machines
       br
       h4 David Worth - dave@highgroove.com
       img.hglogo src="images/highgroove.png" alt="Highgroove Studios"
@@ -60,21 +59,14 @@ body
       h3.slide ... I would have accepted any.
 
     section.slide
-      h2 Why Lisps?
+      h2 Why (study, learn, like) Lisps?
 
       h3.slide
         | ... because they show that computers are Turing machines.
         a href="http://www.flickr.com/photos/ell-r-brown/5118274331/" title="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle by ell brown, on Flickr"
           img src="http://farm2.staticflickr.com/1424/5118274331_4104ffa06d.jpg" width="500" height="375" alt="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle"
+      h3.slide "data" and "code" are indistinguishable in Lisps because they are identically encoded "lists"
 
-    section.slide
-      h2 Why Lisps?
-
-      h3
-        | ... because they show that computers are Turing machines.
-        a href="http://www.flickr.com/photos/ell-r-brown/5118274331/" title="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle by ell brown, on Flickr"
-          img src="http://farm2.staticflickr.com/1424/5118274331_4104ffa06d.jpg" width="500" height="375" alt="Bletchley Park - Block B - The Bletchley Park Story - Statue of Alan Turing - by Stephen Kettle"
-      h3 "data" and "code" are indistinguishable in Lisps because they are identically encoded "lists"
 
     section.slide
       h2 Shellcode 
@@ -87,13 +79,12 @@ body
       h3.slide
         ' Appologies to 
         a href="http://steve-yegge.blogspot.com/2006/04/lisp-is-not-acceptable-lisp.html" Steve Yegge but...
+        span.slide I posit that Ruby is a perfectly acceptable Lisp.
       h3.slide
-        ' I posit that Ruby is a perfectly acceptable Lisp.
-      h3.slide
-        | Even if it lacks some cool Lisp-isms like macros
-      h3.slide
-        ' because it fakes it so well with things like
-        tt define_method
+        'Even if it lacks some cool Lisp-isms like macros...
+        span.slide
+          ' because it fakes it so well with things like
+          tt define_method / instance_eval / class_eval
 
     section.slide
       h2 Abstract Syntax Trees
@@ -136,10 +127,10 @@ body
       script src="https://gist.github.com/3666312.js?file=node_excerpts.c"
 
     section.slide
-      h2 Do something meaningful...
+      h2 Do something interesting...
 
     section.slide
-      h2 Do something meaningful...
+      h2 Do something interesting...
       h3 Find string interpolations using the Ruby Parser gem
       script src="https://gist.github.com/3666312.js?file=ruby_parser_example.rb"
 
@@ -150,7 +141,7 @@ body
 
     section.slide
       h2 Find string interpolations (con't)
-      h3.slide
+      h3
         | This is an S-Expression... 
         span.slide also known as an array.
       h3.slide So we can simply walk down the tree making decisions on node types
@@ -162,22 +153,24 @@ body
 
     section.slide
       h2 Find string interpolations (con't)
-      h3 Walk the AST, and we'll get back a list of interpolated strings as s-expressions
+      h4 Walk the AST, and we'll get back a list of interpolated strings as s-expressions
       script src="https://gist.github.com/3666312.js?file=dstr_sexp.rb"
 
     section.slide
       h2 Find string interpolations (con't)
       div
-        h3 Walking the tree further to find "interpolation expressions" is very similar and produces
+        h4 Walking the tree further to find "interpolation expressions" is very similar and produces
         script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"
 
     section.slide
       h2 Find string interpolations (con't)
       div
-        h3 Walking the tree further to find "interpolation expressions" is very similar and produces
+        h4 Walking the tree further to find "interpolation expressions" is very similar and produces
         script src="https://gist.github.com/3666312.js?file=evstr_sexp.rb"
       h3.slide This is where the actual interpolation occurs
-      h3.slide As we can see, we're interpolating the value of the local variable "baz"
+      h3.slide
+        ' As we can see, we're interpolating the value of the local variable
+        tt baz
 
     section.slide
       h2 Better S-Expression Parsing with SexpProcessor
@@ -189,7 +182,7 @@ body
       script src="https://gist.github.com/3666312.js?file=simplest_possible_sexp_processor_example.rb"
 
     section.slide
-      h2 This is impossible...
+      h2 "This is whole thing is impossible..."
 
       div.slide
         h3 Ruby has all sorts of things that get in our way:
@@ -211,31 +204,30 @@ body
             '  /
             a href="http://ruby.sadi.st/flay.html" Flay
           li
-            a href="http://github.com/martinjandrews/roodi" Roodi
-            '  /
-            a href="https://github.com/troessner/reek" Reek
+            a href="http://brakemanscanner.org/" Brakeman Scanner
+          li ... and more
         img src="images/ruby_logo.gif" alt="Ruby - A Programmer's Best Friend"
 
     section.slide
       h2 Cool Uses of Static Analyis - Flog
-      h3.slide
+      h3
         | From the README:
         pre "Flog reports the most tortured code in an easy to read pain report. The higher the score, the more pain the code is in."
       h3.slide Flog relies on static analysis via SexpProcessor
 
     section.slide
-      h2 Cool Uses of Static Analyis - Flog
+      h2 Cool Uses of Static Analyis - Flog (con't)
       h3
         'Flog assigns to each node of the AST various weighted penalties for complexity...
         span.slide
           at the end of a run the "worst" (most complicated) methods are presented with their scores
 
     section.slide
-      h2 Cool Uses of Static Analyis - Flog
+      h2 Cool Uses of Static Analyis - Flog (con't)
       script src="https://gist.github.com/3703803.js?file=flog_examples.txt"
 
     section.slide
-      h2 Cool Uses of Static Analyis - Flog
+      h2 Cool Uses of Static Analyis - Flog (con't)
       h3
         ' Note: If you look at Flog's source, the author(s) use the 
         tt Sexp#s 
@@ -254,9 +246,52 @@ body
       h3.slide
         | From the README:
         pre "Flay analyzes code for structural similarities. Differences in literal values, variable, class, method names, whitespace, programming style, braces vs do/end, etc are all ignored. Making this totally rad.""
+      h3.slide They mean it.  That is rad.
 
     section.slide
-      h3 References
+      h2
+        ' Cool Uses of Static Analyis - Brakeman
+        img src="images/brakeman.png" alt="Brakeman Scanner Logo" style="float: right;"
+
+      h3.slide Fairly comprehensive security scanner for rails apps
+      h3.slide Analyzes Rails apps from their source without scanning the running app.
+      h3.slide Aware of a wide variety of Rails-specific vulnerabilities as well as general web-app security issues.
+      h3.slide Presented on before at ATLRUG but...
+      h3.slide I'll be happy to talk your ear off about it after the talk.
+
+    section.slide
+      h2 Other cool uses of Static Analysis
+      h3.slide
+        ' (Sir Not-Appearing-In-This-Film)
+        ul
+          li
+            a href="http://github.com/martinjandrews/roodi" Roodi 
+            span.slide
+              ' - "Ruby Object Oriented Design Inferometer"
+              .slide
+                ' Cyclomatic complexity checker for Ruby apps
+                span.slide - i.e. the number of "linearly independent" paths through a program's source
+          li.slide
+            a href="https://github.com/troessner/reek" Reek 
+            span.slide
+              ' - a "Code smell detector for Ruby"
+              .slide
+                ' Detects:
+                ul
+                  li.slide functions with too many parameters
+                  li.slide
+                    ' poor variable naming:
+                    tt x, y, i, j, k
+                  li.slide and more...
+
+    section.slide
+      h1 Thank You!
+
+    section.slide
+      h1 Questions?
+
+    section.slide
+      h2 References
 
       ul
         li
@@ -276,14 +311,15 @@ body
         li
           a href="http://mitpress.mit.edu/sicp/" Structure and Interpretation of Computer Programs
 
+
     p.deck-navigation
       a href="#"
         span.deck-prev-link title="Previous" &#8592;
       a href="#"
         span.deck-next-link title="Next" &#8594;
 
-    // If you've enabled the status extension
-    p.deck-status
-      span.deck-status-current
-      |  /
-      span.deck-status-total
+    /// If you've enabled the status extension
+    /p.deck-status
+      /span.deck-status-current
+      /|  /
+      /span.deck-status-total
